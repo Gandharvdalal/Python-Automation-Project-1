@@ -6,6 +6,7 @@ total_value_per_supplier={}
 
 for i in range(2,worksheet.max_row+1):
     suppliername=worksheet.cell(i,4).value
+    inventory_price=worksheet.cell(i,5)
     if suppliername in products_per_supplier:
         temp=products_per_supplier[suppliername]
         products_per_supplier[suppliername]=temp+1
@@ -20,7 +21,13 @@ for i in range(2,worksheet.max_row+1):
         temp2=total_value_per_supplier[suppliername]
         total_value_per_supplier[suppliername]=temp2+inventory*price
     else:
-        total_value_per_supplier[suppliername]=inventory*price    
+        total_value_per_supplier[suppliername]=inventory*price  
+
+    # add value for total inventory price
+    inventory_price.value=inventory*price
+    # and save the changes
+    #workbook.save(filename='inventory.xlsx')
+    workbook.save("inventory_with_total_value.xlsx") #it saves the file store in the new file
 
 
 print(products_per_supplier)
